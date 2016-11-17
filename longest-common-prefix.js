@@ -14,7 +14,6 @@ var longestCommonPrefix = function(strs) {
             let char = null;
             while(i < len){
                 let str = strs[i];
-                console.log(str)
                 if (i == 0 && str.length > counter){
                     char = str.charAt(counter);
                 }
@@ -29,5 +28,3 @@ var longestCommonPrefix = function(strs) {
 
     return result.join('');
 };
-let res = longestCommonPrefix(['a','avb']);
-console.log(res)
