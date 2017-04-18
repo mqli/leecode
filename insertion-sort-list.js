@@ -9,22 +9,53 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var insertionSortList = function(head) {
-    if (head === null){
+var insertionSortList = function (head) {
+    if (head === null || head.next === null) {
         return head;
     }
-    let index = head;
-    while (index.next !== null) {
-        let innerIndex = head
-        while (index !== innerIndex) {
-            innerIndex = innerIndex.next;
-            if (index.val > innerIndex.val) {
-                let buf = index.val;
-                index.val = innerIndex.val;
-                innerIndex.val = buf;
-            }
+    let sorted = head;
+    let unsorted = head.next;
+    sorted.next = null;
+
+    while (unsorted) {
+        let tosort = unsorted;
+        unsorted = unsorted.next;
+        tosort.next = null;
+        let index = sorted;
+        let prev = null;
+
+
+        while (index && index.val < tosort.val) {
+            prev = index;
+            index = index.next;
         }
-        index = index.next;
+        if (index === sorted) {
+            tosort.next = sorted;
+            sorted = tosort;
+        } else if (index === null) {
+            prev.next = tosort;
+        } else {
+            tosort.next = index;
+            prev.next = tosort;
+        }
+
     }
-    return head;
+
+    return sorted;
 };
+
+let head = {
+    val: 4
+};
+head.next = {
+    val: 2
+};
+head.next.next = {
+    val: 1
+};
+head.next.next.next = {
+    val: 3
+};
+console.dir(insertionSortList(head), {
+    depth: null
+})
